@@ -3,7 +3,7 @@
     <div class="time">
       <img class="back" src="../../assets/back.png" @click="goback">
       <p>距离考试结束还有{{ minute}}分:{{second}}秒</p>
-    </div>
+     </div>
     <div class="nav">
       <mt-button size="small" @click.native.prevent="active = 'tab-container1'" v-if="danxuan.length > 0">单选题</mt-button>
       <mt-button size="small" @click.native.prevent="active = 'tab-container2'" v-if="duoxuan.length > 0">多选题</mt-button>
@@ -13,6 +13,8 @@
       <mt-button size="small" @click.native.prevent="active = 'tab-container6'" v-if="fenxi.length > 0">分析题</mt-button>
       <mt-button size="small" @click.native.prevent="active = 'tab-container7'" v-if="lunsu.length > 0">论述题</mt-button>
     </div>
+    
+   
 
     <div class="page-tab-container">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
@@ -47,7 +49,7 @@
 
           <!-- 填空题组件 -->
           <div class="fill-in-title" v-for="item in tiankong">{{item.title}}
-            <mt-field placeholder="请依次填入答案" type="textarea" v-for="item1 in item.answer" v-model="val[item1]" rows="2"></mt-field>
+            <mt-field placeholder="请依次填入答案" type="textarea" v-for="(item1,index) in item.answer" :key="index" v-model="val[item1]" rows="2"></mt-field>
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container5">
@@ -67,7 +69,7 @@
         <mt-tab-container-item id="tab-container7">
 
           <!-- 论述题组件 -->
-          <div class="duiscuss-title" v-for="item in fenxi">{{item.title}}
+          <div class="duiscuss-title" v-for="item in lunsu">{{item.title}}
             <mt-field placeholder="请填入答案" type="textarea" v-model="val[item.id]" rows="2"></mt-field>
           </div>
         </mt-tab-container-item>
@@ -312,7 +314,7 @@
 <style lang="less" rel="stylesheet">
   .time {
     width: 100%;
-    padding: 5px;
+    padding-top: 5px;
     background: #579fde;
     text-align: center;
     display: inline-flex;

@@ -2,7 +2,10 @@ import axios from 'axios';//引入axios
 
 //const base = "http://192.168.31.173:8083";//把后台接口赋值给base
 //const base = "http://192.168.92.128:8083";//把后台接口赋值给base
-const base = "http://127.0.0.1:8083"
+//const base = "http://192.168.62.21:8083"
+const base = "http://192.168.62.182:8084"
+//const base = "http://ks.tunnel.qydev.com"
+//const base = "http://example.viphk1.ngrok.org"
 // const base = "http://jason2c4.free.ngrok.cc/";
 // 创建axios实例
 const service = axios.create({
@@ -36,6 +39,22 @@ service.interceptors.response.use(
     return response;
   },
   error => {
+  	
+  	
+  	
+//	if (error.response) {
+//          switch (error.response.status) {
+//              case 401:
+//                  // 返回 401 清除token信息并跳转到登录页面
+//                  store.commit(types.LOGOUT);
+//                  router.replace({
+//                      path: 'login',
+//                      query: {redirect: router.currentRoute.fullPath}
+//                  })
+//          }
+//      }
+  	
+  	
     return Promise.reject(error.response);   // 返回接口返回的错误信息
   });
 

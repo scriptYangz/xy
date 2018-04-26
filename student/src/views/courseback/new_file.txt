@@ -1,0 +1,12 @@
+courseback     ---学习反馈
+
+id
+stuid
+csid
+tid             
+instructtime    讲授时间
+instruct        讲授接受情况：1-以前就会；2-完整掌握；3-基本掌握；4-听不懂
+practice        练习完成情况：1-已完成；2-课下完成；3-不能完成；4-不想完成
+knowledge       知识深浅评估：1-太浅；2-刚刚好；3-有点难；4-太难
+expectation     期望补充知识点和建议
+sign 讲师签名          

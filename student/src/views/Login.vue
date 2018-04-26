@@ -21,6 +21,7 @@
   import { Header } from 'mint-ui';
   import { Field } from 'mint-ui';
   import { Button } from 'mint-ui';
+  import { MessageBox } from 'mint-ui';
   export default {
     name: 'login',
     components: {
@@ -43,11 +44,13 @@
             if(code == 1000){
               //成功的逻辑
               console.log("登录成功");
+              console.log(data);
               this.$router.push('/user')
               //保存token
               sessionStorage.setItem('userid', content);
             }else{
               console.log(msg);
+              MessageBox('提示', msg);
             }
        });
       }

@@ -46,7 +46,7 @@
 
           <!-- 填空题组件 -->
           <div class="fill-in-title" v-for="item in tiankong">{{item.title}}
-            <mt-field placeholder="请依次填入答案" v-for="item1 in item.answer" type="textarea" v-model="val[item1]"
+            <mt-field placeholder="请依次填入答案" v-for="(item1,index) in item.answer" :key="index" type="textarea" v-model="val[item1]"
                       rows="2"></mt-field>
           </div>
         </mt-tab-container-item>
@@ -88,6 +88,7 @@
   import {Field} from 'mint-ui';
   import {MessageBox} from 'mint-ui';
   import {selectLitexam, insertanswer} from '../../api/Litexam/litexam';
+  var time;
   export default {
     name: 'answering',
     components: {
@@ -101,8 +102,8 @@
     data() {
       return {
         active: 'tab-container1',
-        minutes: 120,
-        seconds: 0,
+        minutes: 0,
+        seconds: 20,
         //考试名称
         litexamName: '',
         //单选题
@@ -127,6 +128,11 @@
     },
     methods: {
       goback() {
+      	window.clearInterval(time); //清除定时器
+      
+      	//保存答案
+      	let v1 = JSON.stringify(this.val)
+      	sessionStorage.setItem("liteAnswer",v1);
         this.$router.go(-1);
       },
       gernerateId: function (index) {
@@ -140,7 +146,7 @@
       },
       countdown: function () {
         var _this = this;
-        var time = window.setInterval(function () {
+         time = window.setInterval(function () {
           if (_this.seconds == 0 && _this.minutes != 0) {
             _this.seconds = 59;
             _this.minutes -= 1;
@@ -200,9 +206,9 @@
               answer.type.push(7);
               this.initAnswer(this.lunsu, answer.content, 7);
             }
-            alert(answer.content)
             insertanswer(answer).then((res) => {
-							
+							console.log(answer);
+							console.log(res)
             });
             //提交试卷的逻辑
             this.$router.push('/score')
@@ -242,6 +248,17 @@
                 this.initQuestion(i, content.content[i], this.fenxi)
               }
             }
+            
+            
+            
+            //试卷加载完成，加载已答答案
+            if(sessionStorage.getItem("liteAnswer")){
+            	sessionStorage.getItem("liteAnswer");
+            let v2 = JSON.parse( sessionStorage.getItem("liteAnswer") )	;
+            this.val = v2;
+            }
+            
+            
           }
         })
       },
@@ -331,7 +348,7 @@
 <style lang="less" rel="stylesheet">
   .time {
     width: 100%;
-    padding: 5px;
+    padding-top: 5px;
     text-align: center;
     background: #579fde;
     display: inline-flex;
