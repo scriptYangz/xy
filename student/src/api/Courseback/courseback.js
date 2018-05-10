@@ -13,7 +13,7 @@ export const sumDelect = function(params){
 	return service.post(`${base}/summary/tCourseback/delete`, params)
 }
 export const sumUpdate = function(params){
-	return service.post(`${base}summary/tCourseback/update`, params)
+	return service.post(`${base}/summary/tCourseback/update`, params)
 }
 
 

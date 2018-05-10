@@ -262,47 +262,17 @@
 			ch() {
 				MessageBox.confirm('确定要修改这条学习反馈吗?').then(action => {
 					let params = {
-						"id": [this.cid],
+						"id": this.cid,
 						"instructtime": this.today,
 						"instruct": this.setinstruct(this.instruct),
 						"practice": this.setpractice(this.practice),
 						"knowledge": this.setknowledge(this.knowledge),
 						"expectation": this.expectation
 					}; //封装提交内容
+					
+					console.log(params)
 
-					/*//删除
-					sumDelect({
-						"id": [this.cid]
-					}).then((res) => {
-						let {
-							code
-						} = res.data;
-
-						if(code == 1000) { //如果成功删除，添加一条
-
-							setTimeout(function() {
-
-								sumLnsert(params).then((res) => {
-
-									let {
-										code
-									} = res.data;
-									if(code == 1000) {
-										_this.calch();
-									}
-
-								}).catch(
-									err => {
-										console.log('修改失败');
-									}
-								)
-
-							}, 1000)
-
-						}
-
-					})*/
-
+				
 					//提交修改
 					sumUpdate(params).then((res) => {
 						console.log(res)
@@ -312,6 +282,7 @@
 						} = res.data;
 						if(code == 1000) {
 							console.log("修改成功")
+							this.calch();
 						    this.init();
 						}
 					}).catch(

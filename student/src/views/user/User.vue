@@ -35,7 +35,7 @@
           阶段考
         </mt-button>
         <mt-button  class="menu-btn">
-          <img src="../../assets/exam.png" height="50" width="50" slot="icon"><br>
+          <img src="../../assets/考试记录.png" height="50" width="50" slot="icon"><br>
           日总结
         </mt-button>
         <mt-button @click="courseback" class="menu-btn">
@@ -44,7 +44,7 @@
         </mt-button>
         <mt-button class="menu-btn">
           <img src="../../assets/司法考试.png" height="50" width="50" slot="icon"><br>
-          每日一考
+          面试总结
         </mt-button>
         <mt-button class="menu-btn" @click="loginOut">
           <img src="../../assets/power-off.png" height="50" width="50" slot="icon"><br>

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-	import { sumDelect, sumSelect, sumList, student } from '../../api/Courseback/courseback';
+	import { sumDelect, sumSelect, sumList } from '../../api/Courseback/courseback';
 	import { MessageBox } from 'mint-ui';
 	import { Toast } from 'mint-ui';
 	let mcs = document.getElementsByClassName("mcs");
@@ -64,13 +64,14 @@
 		name: 'couserback',
 		data() {
 			return {
+				
 				acheck: false,
 				sValue: "",
 				items: [],
 				list: [],
 				params: {},
 				sid: [],
-				size: "50",
+				size: "100",
 				page: "",
 				current: "1",
 				next: "下一页",
@@ -107,7 +108,6 @@
 					} = res.data;
 					if(code == 1000) {
 
-						console.log(res)
 						this.list = content.records.reverse();
 						this.items = this.list;
 						if(content.pages <= "1") { //如果只有一页，不显示分页按钮
@@ -117,8 +117,11 @@
 								this.pageInF();
 							} else if(content.pages == this.current) { //如果是最后一页
 								this.pageInL();
-							} else {
+							} else if(content.pages>1 && content.current<content.pages) {
 								this.pageInM();
+							}else{
+								this.current = 1;
+								this.couserList();
 							}
 
 						}
@@ -210,7 +213,6 @@
 						caldl[0].style.display = "none";
 						all[0].style.display = "none";
 						Toast('删除成功');
-
 						//半秒之后刷新页面
 						let tout = setTimeout(function() {
 							//批量删除完毕，刷新页面
@@ -273,7 +275,6 @@
 				this.couserList();
 			},
 			all() { //勾选全部
-				//				遍历数组    false   true
 
 				if(this.acheck != true) {
 					this.sid = [];
@@ -293,8 +294,9 @@
 				let _this = this;
 
 				if(val == "") {
-					_this.items = _this.list;
+					_this.items = _this.list;				
 				} else {
+
 					_this.items = [];
 					let j = 0;
 					//监听搜索
@@ -322,14 +324,23 @@
 
 			},
 			sid: function(val, oldval) {
+				//当选择更变的时候，判断长度和items是否相等；
+
+				if(this.sid.length == this.items.length) {
+					console.log(this.sid.length)
+					//把勾子勾上
+					this.acheck = true;
+				} else {
+					this.acheck = false;
+				}
 				console.log(val)
 			}
 		},
 		mounted() {
-			if( sessionStorage.getItem("current") ){
+			if(sessionStorage.getItem("current")) {
 				this.current = sessionStorage.getItem("current");
 			}
-			
+
 			this.couserList();
 		}
 	}
@@ -382,15 +393,15 @@
 	.mcs {
 		display: none;
 	}
+	
 	.dl,
 	.caldl {
 		width: 48%;
-		margin:0 2px;
+		margin: 0 2px;
 		display: none;
-		
 	}
 	
-	.bottom{
+	.bottom {
 		width: 100%;
 	}
 	

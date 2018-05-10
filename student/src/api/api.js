@@ -3,9 +3,9 @@ import axios from 'axios';//引入axios
 //const base = "http://192.168.31.173:8083";//把后台接口赋值给base
 //const base = "http://192.168.92.128:8083";//把后台接口赋值给base
 //const base = "http://192.168.62.21:8083"
-const base = "http://192.168.62.182:8084"
+//const base = "http://192.168.62.182:8084"
 //const base = "http://ks.tunnel.qydev.com"
-//const base = "http://example.viphk1.ngrok.org"
+const base = "http://example.viphk1.ngrok.org"
 // const base = "http://jason2c4.free.ngrok.cc/";
 // 创建axios实例
 const service = axios.create({
